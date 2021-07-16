@@ -40,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "@types/styled-components": "^5.1.11",
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.4.0",

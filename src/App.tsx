@@ -1,9 +1,12 @@
-import React from 'react';
-function App() {
+import { ForgotPassword } from './pages/ForgotPassword';
+import { SignIn } from './pages/SignIn';
+import { GlobalStyle } from './styles/global';
+export function App() {
   return (
     <div className="App">
-      <h1>Hello Project Start</h1>
+      <GlobalStyle />
+      <SignIn />
+      <ForgotPassword />
     </div>
   );
 }
-export default App;
