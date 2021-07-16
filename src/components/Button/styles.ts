@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.button`
   background: var(--Blue);
-  color: #FFF;
+  color: #fff;
   font-size: 1rem;
   width: 100%;
   font-family: 'Archivo', sans-serif;

@@ -57,20 +57,19 @@ export const Content = styled.div`
     }
 
     strong {
-      font-family: 'Inter',sans-serif;
+      font-family: 'Inter', sans-serif;
       font-size: 1.2rem;
       font-weight: 600;
-      color:var(--Black);
+      color: var(--Black);
       text-align: left;
       margin-bottom: 12px;
       display: block;
     }
   }
-
 `;
 
 export const Background = styled.div`
-display: flex;
+  display: flex;
   img {
     width: 90%;
   }

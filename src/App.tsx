@@ -1,12 +1,15 @@
-import { ForgotPassword } from './pages/ForgotPassword';
-import { SignIn } from './pages/SignIn';
-import { GlobalStyle } from './styles/global';
+import SignIn from './pages/SignIn';
+// import ForgotPassword from './pages/ForgotPassword';
+// import Dashboard from './pages/Dashboard';
+import GlobalStyle from './styles/global';
+
 export function App() {
   return (
     <div className="App">
       <GlobalStyle />
       <SignIn />
-      <ForgotPassword />
+      {/* <ForgotPassword /> */}
+      {/* <Dashboard />  */}
     </div>
   );
 }
