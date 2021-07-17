@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { lighten } from 'polished';
-
 export const Container = styled.div`
   display: flex;
   margin: 0 auto;
@@ -10,7 +8,6 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-
 export const Content = styled.div`
   width: 100%;
   max-width: 700px;

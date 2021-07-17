@@ -1,4 +1,5 @@
 import { FiMail, FiLock } from 'react-icons/fi';
+import { Form } from '@unform/web';
 import { Container, Content, Background } from './styles';
 
 import LogoSignIn from '../../assets/logo.svg';
@@ -7,10 +8,14 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 export default function SignIn(): JSX.Element {
+  function handleSubmit(data: string): void {
+    console.log(data);
+  }
+
   return (
     <Container>
       <Content>
-        <form>
+        <Form onSubmit={handleSubmit}>
           <h3>
             Acesso <br />
             <span>Administrativo</span>
@@ -28,7 +33,7 @@ export default function SignIn(): JSX.Element {
 
           <Button type="submit">Entrar</Button>
           <a href="forgot">Esqueci minha senha</a>
-        </form>
+        </Form>
       </Content>
 
       <Background>

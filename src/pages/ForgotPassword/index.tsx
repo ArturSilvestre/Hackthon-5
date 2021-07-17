@@ -1,4 +1,5 @@
 import { FiMail } from 'react-icons/fi';
+import { Form } from '@unform/web';
 import { Container, Content, Background } from './styles';
 
 import LogoSignIn from '../../assets/logo.svg';
@@ -7,10 +8,14 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 export default function ForgotPassword(): JSX.Element {
+  function handleSubmit(data: string): void {
+    console.log(data);
+  }
+
   return (
     <Container>
       <Content>
-        <form>
+        <Form onSubmit={handleSubmit}>
           <h3>
             Acesso <br />
             <span>Administrativo</span>
@@ -23,7 +28,7 @@ export default function ForgotPassword(): JSX.Element {
           <Input name="email" icon={FiMail} placeholder="E-mail" />
 
           <Button type="submit">Enviar</Button>
-        </form>
+        </Form>
       </Content>
 
       <Background>
