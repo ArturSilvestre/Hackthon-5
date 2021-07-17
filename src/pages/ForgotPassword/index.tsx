@@ -9,6 +9,7 @@ import Button from '../../components/Button';
 
 export default function ForgotPassword(): JSX.Element {
   function handleSubmit(data: string): void {
+    // eslint-disable-next-line no-console
     console.log(data);
   }
 
