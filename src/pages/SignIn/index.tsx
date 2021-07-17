@@ -1,10 +1,10 @@
-import React, { useRef, useCallback, useContext } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 
-import AuthContext from '../../context/AuthContext';
 import getValidationErrors from '../../Utils/getValidationErrors';
 
 import { Container, Content, Background } from './styles';
@@ -21,10 +21,6 @@ interface LoginProps {
 
 export default function SignIn(): JSX.Element {
   const formRef = useRef<FormHandles>(null);
-
-  const { name } = useContext(AuthContext);
-
-  console.log(name);
 
   const handleSubmit = useCallback(async (data: LoginProps) => {
     try {
@@ -66,8 +62,10 @@ export default function SignIn(): JSX.Element {
             placeholder="Senha"
           />
 
-          <Button type="submit">Entrar</Button>
-          <a href="forgot">Esqueci minha senha</a>
+          <Button type="submit">
+            <Link to="/home">Entrar</Link>
+          </Button>
+          <Link to="/recuperar">Esqueci minha senha</Link>
         </Form>
       </Content>
 
