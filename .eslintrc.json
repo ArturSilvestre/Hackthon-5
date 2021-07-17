@@ -27,6 +27,7 @@
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
       "react/jsx-props-no-spreading": "off",
+      "no-unused-expressions": "off",
       "react/jsx-filename-extension": [
         1,
         {
@@ -49,7 +50,16 @@
         }
      ],
      "prettier/prettier": "error",
-     "import/prefer-default-export": "off"
+     "import/prefer-default-export": "off",
+     "@typescript-eslint/ban-types": ["error", {
+      "types": {
+          "a": null,
+          "A": null,
+          "object": null,
+          "Object": null
+       }
+      }
+    ]
     },
     "settings": {
       "import/resolver": {

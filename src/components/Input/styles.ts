@@ -4,6 +4,7 @@ import { lighten } from 'polished';
 interface ContainerProps {
   isFocused: boolean;
   isFilled: boolean;
+  isErrored: boolean;
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -30,6 +31,13 @@ export const Container = styled.div<ContainerProps>`
     props.isFilled &&
     css`
       color: var(--Blue);
+    `}
+
+    ${props =>
+    props.isErrored &&
+    css`
+      color: var(--Red);
+      border-color: var(--Red);
     `}
 
   input {

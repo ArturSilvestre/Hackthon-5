@@ -46,7 +46,7 @@ export default function Input({
   }, [fieldName, registerField]);
 
   return (
-    <Container isFilled={isFilled} isFocused={isFocused}>
+    <Container isErrored={!!error} isFilled={isFilled} isFocused={isFocused}>
       <input
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
@@ -54,6 +54,7 @@ export default function Input({
         ref={inputRef}
         {...rest}
       />
+      {error}
       {Icon && <Icon size={18} />}
     </Container>
   );
