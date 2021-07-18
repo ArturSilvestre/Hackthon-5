@@ -3,7 +3,6 @@ import { FiMail, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
 
 import getValidationErrors from '../../Utils/getValidationErrors';
 
@@ -19,7 +18,7 @@ interface LoginProps {
   password: string;
 }
 
-export default function SignIn(): JSX.Element {
+export default function SignUp(): JSX.Element {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(async (data: LoginProps) => {
@@ -27,6 +26,9 @@ export default function SignIn(): JSX.Element {
       formRef.current?.setErrors({});
 
       const schema = Yup.object().shape({
+        nome: Yup.string().required('Nome obrigatório'),
+        sobrenome: Yup.string().required('Sobrenome obrigatório'),
+        chapa: Yup.string().required('Chapa obrigatório'),
         email: Yup.string()
           .required('E-mail obrigatória')
           .email('Digite email valido'),
@@ -47,13 +49,12 @@ export default function SignIn(): JSX.Element {
     <Container>
       <Content>
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <h3>
-            Acesso <br />
-            <span>Administrativo</span>
-          </h3>
-          <h1>Seja bem-vindo!</h1>
-          <strong>1. Informe seu email e senha</strong>
+          <h1>Criar uma nova conta</h1>
+          <strong>1. Informe os dados para cadastrar um novo usuario</strong>
 
+          <Input name="nome" icon={FiMail} placeholder="Nome" />
+          <Input name="sobrenome" icon={FiMail} placeholder="Sobrenome" />
+          <Input name="chapa" icon={FiMail} placeholder="Chapa" />
           <Input name="email" icon={FiMail} placeholder="E-mail" />
           <Input
             name="password"
@@ -62,8 +63,7 @@ export default function SignIn(): JSX.Element {
             placeholder="Senha"
           />
 
-          <Button type="submit">Entrar</Button>
-          <Link to="/recuperar">Esqueci minha senha</Link>
+          <Button type="submit">Cadastrar</Button>
         </Form>
       </Content>
 
