@@ -19,6 +19,7 @@ export function Routes() {
         <>
           <Route path="/" exact component={SignIn} />
           <Route path="/recuperar" exact component={ForgotPassword} />
+          <Route path="/confirmado/:id" exact component={ConfirmAcount} />
         </>
       </Switch>
     );
@@ -29,7 +30,6 @@ export function Routes() {
       <Switch>
         <Route path="/" exact component={Dashboard} />
         <Route path="/cadastrar" exact component={SignUp} />
-        <Route path="/confirmado/:id" exact component={ConfirmAcount} />
       </Switch>
     </MainContainer>
   );
