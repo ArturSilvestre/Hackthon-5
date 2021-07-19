@@ -1,13 +1,15 @@
+/* eslint-disable import/no-unresolved */
 import { format } from 'date-fns';
-import { useEffect, useCallback, useState, useMemo } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { FaClock } from 'react-icons/fa';
 
 import { useParams } from 'react-router-dom';
 import OccurrenceStatus from '../../enums/OccurrenceStatus';
 import OccurrenceTypes from '../../enums/OccurrenceTypes';
 import api from '../../services/api';
-import getOccurrenceStatusInformation from '../../utils/getOccurrenceStatusInformation';
-import getOccurrenceTypeInformation from '../../utils/getOccurrenceTypeInformation';
+import getOccurrenceStatusInformation from '../../Utils/getOccurrenceStatusInformation';
+import getOccurrenceTypeInformation from '../../Utils/getOccurrenceTypeInformation';
+
 import {
   ChangeStatusButton,
   Container,
