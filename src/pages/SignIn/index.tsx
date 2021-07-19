@@ -51,7 +51,7 @@ export default function SignIn(): JSX.Element {
           formRef.current?.setErrors({
             email: 'E-mail e/ou senha incorretos',
           });
-        } else if (response.status === 204) {
+        } else if (response.status === 200) {
           signIn({
             token: response.data.token,
             user: {

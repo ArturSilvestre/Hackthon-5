@@ -8,9 +8,13 @@ import React, {
 } from 'react';
 
 interface AuthContextProps {
-  user: object;
+  user: {
+    first_name: string;
+    last_name: string;
+  };
   signIn(data: AuthState): Promise<void>;
   signOut(): void;
+  isAuthenticated: boolean;
 }
 
 interface AuthState {
@@ -53,8 +57,12 @@ function AuthProvider({ children }: AuthProps): JSX.Element {
     setData({} as AuthState);
   }, []);
 
+  const isAuthenticated = !!data.user;
+
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user: data.user, signIn, signOut, isAuthenticated }}
+    >
       {children}
     </AuthContext.Provider>
   );
