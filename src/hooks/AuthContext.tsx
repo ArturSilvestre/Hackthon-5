@@ -43,7 +43,7 @@ function AuthProvider({ children }: AuthProps): JSX.Element {
   });
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post('emplowee/login', { email, password });
+    const response = await api.post('employee/login', { email, password });
 
     const { token, user } = response.data;
 
