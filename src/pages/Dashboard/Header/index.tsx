@@ -7,19 +7,25 @@ import api from '../../../services/api';
 import {
   Container,
   GoToOccurrenceContainer,
-  SearchInput,
+  SearchContainer,
   SelectTypeContainer,
 } from './styles';
 
 interface IProps {
   selectedType: 'read' | 'unread';
   setSelectedType: (value: 'read' | 'unread') => void;
+  search: (value: string) => void;
 }
 
-const Header = ({ selectedType, setSelectedType }: IProps): JSX.Element => {
+const Header = ({
+  selectedType,
+  setSelectedType,
+  search,
+}: IProps): JSX.Element => {
   const history = useHistory();
   const { addToast } = useToast();
 
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const goToOccurenceInputRef = useRef<HTMLInputElement>(null);
 
   const [isLoadingOccurrence, setIsLoadingOccurrence] = useState(false);
@@ -62,10 +68,23 @@ const Header = ({ selectedType, setSelectedType }: IProps): JSX.Element => {
           </button>
         </SelectTypeContainer>
 
-        <SearchInput
-          type="text"
-          placeholder="Pesquise por endereço ou nome do solicitante"
-        />
+        <SearchContainer>
+          <input
+            ref={searchInputRef}
+            type="text"
+            placeholder="Pesquise por endereço ou nome do solicitante"
+          />
+
+          <button
+            type="button"
+            onClick={() =>
+              searchInputRef.current?.value &&
+              search(searchInputRef.current?.value)
+            }
+          >
+            Buscar
+          </button>
+        </SearchContainer>
       </div>
 
       <div>

@@ -23,20 +23,23 @@ export interface IOccurrence {
 
 export default function Dashboard(): JSX.Element {
   const [selectedType, setSelectedType] = useState<'read' | 'unread'>('unread');
+  const [search, setSearch] = useState('');
   const [occurrences, setOccurrences] = useState<IOccurrence[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const getOccurrences = useCallback(async () => {
     setIsLoading(true);
 
+    const searchStr = search ? `&search=${search}` : '';
+
     const response = await api.get(
-      `/occurrence/employee/list?filter=${selectedType}`,
+      `/occurrence/employee/list?filter=${selectedType}${searchStr}`,
     );
 
     setOccurrences(response.data.occurrences);
 
     setIsLoading(false);
-  }, [selectedType]);
+  }, [search, selectedType]);
 
   useEffect(() => {
     getOccurrences();
@@ -47,7 +50,11 @@ export default function Dashboard(): JSX.Element {
       {/* <Filters /> */}
 
       <Main>
-        <Header selectedType={selectedType} setSelectedType={setSelectedType} />
+        <Header
+          selectedType={selectedType}
+          setSelectedType={setSelectedType}
+          search={setSearch}
+        />
         {isLoading && (
           <LoaderContainer>
             <Loader type="ThreeDots" />

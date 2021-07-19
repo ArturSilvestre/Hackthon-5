@@ -58,19 +58,44 @@ export const SelectTypeContainer = styled.div`
   }
 `;
 
-export const SearchInput = styled.input`
-  padding: 12px;
-  width: 100%;
+export const SearchContainer = styled.div`
+  display: flex;
 
-  border: 0;
-  border-radius: 4px;
+  input {
+    padding: 12px;
+    width: 100%;
 
-  background-color: ${transparentize(0.95, Colors.black)};
+    border: 0;
+    border-radius: 4px 0 0 4px;
 
-  font-family: 'Inter', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 400;
-  color: ${Colors.black};
+    background-color: ${transparentize(0.95, Colors.black)};
+
+    font-family: 'Inter', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: ${Colors.black};
+  }
+
+  button {
+    display: block;
+
+    cursor: pointer;
+
+    border-radius: 0 4px 4px 0;
+    border: 0;
+
+    font-family: 'Inter';
+    text-align: center;
+
+    padding: 8px 16px;
+
+    background-color: ${Colors.teal};
+
+    font-size: 1.6rem;
+    font-weight: 500;
+
+    color: ${Colors.white};
+  }
 `;
 
 export const GoToOccurrenceContainer = styled.div`
