@@ -24,7 +24,7 @@ const toastTypeVariations = {
 };
 
 export const Container = styled.div<ContainerProps>`
-  width: 290px;
+  width: 320px;
 
   position: relative;
   padding: 16px 30px 16px 16px;
@@ -48,10 +48,14 @@ export const Container = styled.div<ContainerProps>`
 
     p {
       margin-top: 4px;
-      font-size: 1.2rem;
+      font-size: 1.6rem;
       opacity: 0.8;
       line-height: 2rem;
     }
+  }
+
+  strong {
+    font-size: 1.4rem;
   }
 
   button {
