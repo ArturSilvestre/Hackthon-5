@@ -11,8 +11,12 @@ import OccurrenceTypes from '../../enums/OccurrenceTypes';
 import api from '../../services/api';
 import getOccurrenceStatusInformation from '../../utils/getOccurrenceStatusInformation';
 import getOccurrenceTypeInformation from '../../utils/getOccurrenceTypeInformation';
+<<<<<<< HEAD
+
+=======
 import ChangeStatusModal from './ChangeStatusModal';
 import SetInformation from './SetInformation';
+>>>>>>> e02a7d9ddfa23ef265ecd83671e4a5a7c20d99bf
 import {
   ChangeStatusButton,
   Container,
