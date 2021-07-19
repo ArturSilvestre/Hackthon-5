@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { format } from 'date-fns';
 import { useEffect, useCallback, useState } from 'react';
 import { FaClock } from 'react-icons/fa';
