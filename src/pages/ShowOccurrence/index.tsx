@@ -1,6 +1,8 @@
 import { format } from 'date-fns';
-import { useEffect, useCallback, useState, useMemo } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { FaClock } from 'react-icons/fa';
+
+import Loader from 'react-loader-spinner';
 
 import { useParams } from 'react-router-dom';
 import OccurrenceStatus from '../../enums/OccurrenceStatus';
@@ -8,10 +10,14 @@ import OccurrenceTypes from '../../enums/OccurrenceTypes';
 import api from '../../services/api';
 import getOccurrenceStatusInformation from '../../utils/getOccurrenceStatusInformation';
 import getOccurrenceTypeInformation from '../../utils/getOccurrenceTypeInformation';
+import ChangeStatusModal from './ChangeStatusModal';
+import SetInformation from './SetInformation';
 import {
   ChangeStatusButton,
   Container,
   DatetimeContainer,
+  LoaderContainer,
+  PartialLoadingContainer,
   PhotosContainer,
   SectionContainer,
   SectionTitle,
@@ -59,20 +65,81 @@ const ShowOccurrence = (): JSX.Element | null => {
 
   const [occurrence, setOccurrence] = useState<IFullOccurrence>();
   const [isLoading, setIsLoading] = useState(false);
+  const [isPartialLoading, setIsPartialLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getOccurrence = useCallback(async () => {
-    setIsLoading(true);
+    const currentSetIsLoading = occurrence ? setIsPartialLoading : setIsLoading;
+
+    currentSetIsLoading(true);
 
     const response = await api.get(`/occurrence/employee/${id}`);
 
     setOccurrence(response.data);
 
-    setIsLoading(false);
+    currentSetIsLoading(false);
+  }, [id, occurrence]);
+
+  const deletePhotos = useCallback(async () => {
+    const response = await api.patch(`/occurrence/${id}/delete-photos`);
+
+    if (response.status === 204) {
+      // toast
+    }
   }, [id]);
+
+  const defineOccurrenceNumber = useCallback(
+    async (occurrenceNumber: string) => {
+      setIsPartialLoading(true);
+
+      const body = {
+        status: OccurrenceStatus.RegistroNumeroDeOcorrencia,
+        occurrenceNumber,
+      };
+
+      const response = await api.put(`/occurrence/${id}`, body);
+
+      if (response.status === 204) {
+        getOccurrence();
+      }
+
+      setIsPartialLoading(false);
+    },
+    [getOccurrence, id],
+  );
+
+  const defineViolationNumber = useCallback(
+    async (violationNumber: string) => {
+      setIsPartialLoading(true);
+
+      const body = {
+        status: OccurrenceStatus.RegistroAutoInfracao,
+        violationNumber,
+      };
+
+      const response = await api.put(`/occurrence/${id}`, body);
+
+      if (response.status === 204) {
+        getOccurrence();
+      }
+
+      setIsPartialLoading(false);
+    },
+    [getOccurrence, id],
+  );
 
   useEffect(() => {
     getOccurrence();
-  }, [getOccurrence]);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <LoaderContainer>
+        <Loader type="ThreeDots" />
+        <p>Carregando ocorrência</p>
+      </LoaderContainer>
+    );
+  }
 
   if (!occurrence) return null;
 
@@ -94,6 +161,11 @@ const ShowOccurrence = (): JSX.Element | null => {
             {format(datetime, 'HH:mm')} de {format(datetime, 'dd/MM/yy')}
           </p>
         </DatetimeContainer>
+        {isPartialLoading && (
+          <PartialLoadingContainer>
+            <Loader type="ThreeDots" />
+          </PartialLoadingContainer>
+        )}
       </SectionTitle>
 
       <SectionContainer>
@@ -111,7 +183,12 @@ const ShowOccurrence = (): JSX.Element | null => {
               <p>{occurrence.occurrenceNumber}</p>
             </div>
           ) : (
-            <></>
+            <SetInformation
+              title="Definir nº da ocorrência"
+              placeholder="Nº da ocorrência"
+              onSubmit={defineOccurrenceNumber}
+              isLoading={isPartialLoading}
+            />
           )}
 
           {occurrence.violationNumber ? (
@@ -120,14 +197,21 @@ const ShowOccurrence = (): JSX.Element | null => {
               <p>{occurrence.violationNumber}</p>
             </div>
           ) : (
-            <></>
+            <SetInformation
+              title="Definir nº do auto da infração"
+              placeholder="Nº do auto da infração"
+              onSubmit={defineViolationNumber}
+              isLoading={isPartialLoading}
+            />
           )}
 
           <div>
             <span>Status atual</span>
             <p>{occurrenceStatus.title}</p>
 
-            <ChangeStatusButton>Alterar Status</ChangeStatusButton>
+            <ChangeStatusButton onClick={() => setIsModalOpen(true)}>
+              Alterar Status
+            </ChangeStatusButton>
           </div>
         </div>
 
@@ -180,7 +264,16 @@ const ShowOccurrence = (): JSX.Element | null => {
 
       {occurrence.photos.length > 0 && (
         <>
-          <SectionTitle>Fotos da ocorrência</SectionTitle>
+          <SectionTitle>
+            Fotos da ocorrência{' '}
+            <button
+              type="button"
+              className="delete-photos"
+              onClick={deletePhotos}
+            >
+              Apagar fotos
+            </button>
+          </SectionTitle>
 
           <PhotosContainer>
             {occurrence.photos.map((photo, i) => (
@@ -221,6 +314,14 @@ const ShowOccurrence = (): JSX.Element | null => {
           </div>
         </div>
       </SectionContainer>
+
+      <ChangeStatusModal
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        occurrenceId={id}
+        currentStatus={occurrence.status}
+        reload={getOccurrence}
+      />
     </Container>
   );
 };
