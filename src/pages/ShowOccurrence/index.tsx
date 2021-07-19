@@ -218,6 +218,17 @@ const ShowOccurrence = (): JSX.Element | null => {
         </div>
 
         <div>
+          {!!occurrence.address.latitude && !!occurrence.address.longitude && (
+            <div>
+              <span>Endereço</span>
+              <iframe
+                title="map"
+                frameBorder="0"
+                src={`https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_GOOGLE_API_KEY}&q=${occurrence.address.latitude},${occurrence.address.longitude}`}
+              />
+            </div>
+          )}
+
           <div>
             <span>Bairro</span>
             <p>{occurrence.address.district}</p>

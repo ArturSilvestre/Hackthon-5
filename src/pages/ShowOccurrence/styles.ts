@@ -93,6 +93,9 @@ export const SectionContainer = styled.div`
 
   > div {
     > div {
+      display: flex;
+      flex-direction: column;
+
       margin-bottom: 24px;
 
       font-family: 'Inter', sans-serif;
@@ -118,6 +121,15 @@ export const SectionContainer = styled.div`
         }
       }
     }
+  }
+
+  iframe {
+    width: 80%;
+    min-height: 260px;
+
+    border: 0;
+
+    margin-bottom: 16px;
   }
 `;
 
