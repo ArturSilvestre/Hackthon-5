@@ -6,16 +6,10 @@ import React, {
   useState,
   useContext,
 } from 'react';
-import api from '../services/api';
-
-interface SignInCredencials {
-  email: string;
-  password: string;
-}
 
 interface AuthContextProps {
   user: object;
-  signIn(credencials: SignInCredencials): Promise<void>;
+  signIn(data: AuthState): Promise<void>;
   signOut(): void;
 }
 
@@ -42,11 +36,7 @@ function AuthProvider({ children }: AuthProps): JSX.Element {
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post('employee/login', { email, password });
-
-    const { token, user } = response.data;
-
+  const signIn = useCallback(async ({ token, user }) => {
     localStorage.setItem('@EcoFranca:token', token);
     localStorage.setItem('@EcoFranca:user', JSON.stringify(user));
 

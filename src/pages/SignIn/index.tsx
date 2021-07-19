@@ -14,6 +14,7 @@ import LogoSignIn from '../../assets/logo.svg';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import api from '../../services/api';
 
 interface SignInFormProps {
   email: string;
@@ -32,19 +33,27 @@ export default function SignIn(): JSX.Element {
 
         const schema = Yup.object().shape({
           email: Yup.string()
-            .required('E-mail obrigatória')
-            .email('Digite email valido'),
-          password: Yup.string().min(6, 'No minimo 6 digitos'),
+            .email('E-mail invalido')
+            .required('Esse campo é obrigatório'),
+          password: Yup.string().required('Esse campo é obrigatório'),
         });
 
         await schema.validate(loginProps, {
           abortEarly: false,
         });
 
-        signIn({
+        const response = await api.post('employee/login', {
           email: loginProps.email,
           password: loginProps.password,
         });
+
+        if (response.status === 404) {
+          formRef.current?.setErrors({
+            email: 'E-mail e/ou senha incorretos',
+          });
+        } else {
+          signIn(response.data);
+        }
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
