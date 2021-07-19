@@ -1,44 +1,42 @@
 import styled from 'styled-components';
+import Colors from '../../styles/Colors';
 
 export const Container = styled.header`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 48px;
-  margin: 0 auto;
-  border-bottom: 1px solid var(--Black);
+  padding: 24px 32px;
+  border-bottom: 1px solid ${Colors.black};
 `;
 
 export const Content = styled.div`
   display: flex;
-  width: 85%;
-  margin: 0 auto;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
 
   h1 {
-    color: var(--Black);
-    font-size: 2.4rem;
-    font-style: normal;
     font-family: 'Inter', sans-serif;
+    font-size: 2rem;
     font-weight: 600;
-    line-height: 2.5rem;
+
+    color: ${Colors.black};
   }
 
   span {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    color: var(--Black);
+
+    color: ${Colors.black};
+
     font-family: 'Inter', sans-serif;
     font-style: normal;
+    font-size: 1.8rem;
     font-weight: 500;
-    font-size: 1.6rem;
-    line-height: 2.6rem;
 
     svg {
-      margin-left: 10px;
-      margin-bottom: 6px;
+      margin-left: 24px;
     }
   }
 `;
