@@ -1,12 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable import/no-unresolved */
 import React, { useRef, useCallback } from 'react';
-import { FiMail, FiLock } from 'react-icons/fi';
+import { FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import { useAuth } from '../../hooks/AuthContext';
 import { useToast } from '../../hooks/ToastContext';
 
 import { Container, Content, Background } from './styles';
@@ -18,51 +18,41 @@ import Button from '../../components/Button';
 import api from '../../services/api';
 import getValidationErrors from '../../utilsFunctions/getValidationErrors';
 
-interface SignInFormProps {
-  email: string;
+interface ResetPasswordFormProps {
   password: string;
 }
 
-export default function SignIn(): JSX.Element {
+export default function ResetPassword(): JSX.Element {
   const formRef = useRef<FormHandles>(null);
 
-  const { signIn } = useAuth();
   const { addToast } = useToast();
 
+  const history = useHistory();
+  const location = useLocation();
+
+  console.log(location);
+
   const handleSubmit = useCallback(
-    async (loginProps: SignInFormProps) => {
+    async (resetProps: ResetPasswordFormProps) => {
       try {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          email: Yup.string()
-            .email('E-mail invalido')
-            .required('Esse campo é obrigatório'),
           password: Yup.string().required('Esse campo é obrigatório'),
         });
 
-        await schema.validate(loginProps, {
+        await schema.validate(resetProps, {
           abortEarly: false,
         });
 
-        const response = await api.post('employee/login', {
-          email: loginProps.email,
-          password: loginProps.password,
-        });
+        await api.patch(
+          'employee/recovery-password/ebb0ae21-9760-466d-984e-b1f502a4533f',
+          {
+            password: resetProps.password,
+          },
+        );
 
-        if (response.status === 404) {
-          formRef.current?.setErrors({
-            email: 'E-mail e/ou senha incorretos',
-          });
-        } else if (response.status === 200) {
-          signIn({
-            token: response.data.token,
-            user: {
-              first_name: response.data.first_name,
-              last_name: response.data.last_name,
-            },
-          });
-        }
+        history.push('/');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -71,13 +61,13 @@ export default function SignIn(): JSX.Element {
         }
 
         addToast({
-          type: 'success',
-          title: 'Erro na autenticação',
-          description: 'Ocorreu um erro ao fazer login, cheque as credenciais.',
+          type: 'error',
+          title: 'Erro ao resetar senha',
+          description: 'Ocorreu um erro ao resetar sua senha, tente novamente.',
         });
       }
     },
-    [signIn, addToast],
+    [addToast, history, location.hash],
   );
 
   return (
@@ -88,19 +78,17 @@ export default function SignIn(): JSX.Element {
             Acesso <br />
             <span>Administrativo</span>
           </h3>
-          <h1>Seja bem-vindo!</h1>
-          <strong>1. Informe seu email e senha</strong>
+          <h1>Resetar senha</h1>
+          <strong>1. Informe uma nova senha</strong>
 
-          <Input name="email" icon={FiMail} placeholder="E-mail" />
           <Input
             name="password"
             icon={FiLock}
             type="password"
-            placeholder="Senha"
+            placeholder="Nova senha"
           />
 
-          <Button type="submit">Entrar</Button>
-          <Link to="/recuperar-senha">Esqueci minha senha</Link>
+          <Button type="submit">Alterar</Button>
         </Form>
       </Content>
 

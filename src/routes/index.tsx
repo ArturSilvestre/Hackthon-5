@@ -10,6 +10,7 @@ import ConfirmAcount from '../pages/ConfirmAcount';
 import { useAuth } from '../hooks/AuthContext';
 import MainContainer from '../components/MainContainer';
 import ShowOccurrence from '../pages/ShowOccurrence';
+import ResetPassword from '../pages/ResetPassword';
 
 export function Routes() {
   const { isAuthenticated } = useAuth();
@@ -19,7 +20,8 @@ export function Routes() {
       <Switch>
         <>
           <Route path="/" exact component={SignIn} />
-          <Route path="/recuperar" exact component={ForgotPassword} />
+          <Route path="/recuperar-senha" exact component={ForgotPassword} />
+          <Route path="/alterar-senha" exact component={ResetPassword} />
           <Route path="/confirmado/:id" exact component={ConfirmAcount} />
         </>
       </Switch>
