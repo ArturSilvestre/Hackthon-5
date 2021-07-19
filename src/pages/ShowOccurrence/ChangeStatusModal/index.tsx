@@ -6,7 +6,7 @@ import Loader from 'react-loader-spinner';
 import OccurrenceStatus from '../../../enums/OccurrenceStatus';
 import api from '../../../services/api';
 import Colors from '../../../styles/Colors';
-import getOccurrenceStatusInformation from '../../../utils/getOccurrenceStatusInformation';
+import getOccurrenceStatusInformation from '../../../Utils/getOccurrenceStatusInformation';
 import { Container } from './styles';
 
 interface IProps {

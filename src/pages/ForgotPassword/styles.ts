@@ -8,7 +8,6 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-
 export const Content = styled.div`
   width: 100%;
   max-width: 700px;
@@ -36,17 +35,29 @@ export const Content = styled.div`
     }
 
     h1 {
-      color: #393e46;
+      color: var(--Black);
       margin-bottom: 24px;
       text-align: center;
       font-size: 4.1rem;
+    }
+
+    a {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 25px;
+      color: var(--Black);
     }
 
     strong {
       font-family: 'Inter', sans-serif;
       font-size: 1.2rem;
       font-weight: 600;
-      color: #393e46;
+      color: var(--Black);
       text-align: left;
       margin-bottom: 12px;
       display: block;
