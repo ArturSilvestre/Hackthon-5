@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { format, differenceInDays } from 'date-fns';
 import { FaClock } from 'react-icons/fa';
 import { IOccurrence } from '../../pages/Dashboard';
-import getOccurrenceTypeInformation from '../../Utils/getOccurrenceTypeInformation';
+import getOccurrenceTypeInformation from '../../utilsFunctions/getOccurrenceTypeInformation';
 import { Container } from './styles';
 
 interface IProps {

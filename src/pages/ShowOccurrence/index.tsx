@@ -8,11 +8,10 @@ import { useParams } from 'react-router-dom';
 import OccurrenceStatus from '../../enums/OccurrenceStatus';
 import OccurrenceTypes from '../../enums/OccurrenceTypes';
 import api from '../../services/api';
-import getOccurrenceStatusInformation from '../../Utils/getOccurrenceStatusInformation';
-import getOccurrenceTypeInformation from '../../Utils/getOccurrenceTypeInformation';
+import getOccurrenceStatusInformation from '../../utilsFunctions/getOccurrenceStatusInformation';
+import getOccurrenceTypeInformation from '../../utilsFunctions/getOccurrenceTypeInformation';
 import ChangeStatusModal from './ChangeStatusModal';
 import SetInformation from './SetInformation';
-
 import {
   ChangeStatusButton,
   Container,

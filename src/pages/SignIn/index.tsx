@@ -16,7 +16,7 @@ import LogoSignIn from '../../assets/logo.svg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import api from '../../services/api';
-import getValidationErrors from '../../Utils/getValidationErrors';
+import getValidationErrors from '../../utilsFunctions/getValidationErrors';
 
 interface SignInFormProps {
   email: string;
