@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Container, Main } from './styles';
+import { useEffect, useState, useCallback } from 'react';
+import Loader from 'react-loader-spinner';
+import { Container, LoaderContainer, Main } from './styles';
 
 import OccurrencesContainer from './OccurrencesContainer';
 import api from '../../services/api';
@@ -21,29 +22,37 @@ export interface IOccurrence {
 }
 
 export default function Dashboard(): JSX.Element {
+  const [selectedType, setSelectedType] = useState<'read' | 'unread'>('unread');
   const [occurrences, setOccurrences] = useState<IOccurrence[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const getOccurrences = async () => {
+  const getOccurrences = useCallback(async () => {
     setIsLoading(true);
 
-    const response = await api.get('/occurrence/employee/list');
+    const response = await api.get(
+      `/occurrence/employee/list?filter=${selectedType}`,
+    );
 
     setOccurrences(response.data.occurrences);
 
     setIsLoading(false);
-  };
+  }, [selectedType]);
 
   useEffect(() => {
     getOccurrences();
-  }, []);
+  }, [getOccurrences]);
 
   return (
     <Container>
       {/* <Filters /> */}
 
       <Main>
-        <Header />
+        <Header selectedType={selectedType} setSelectedType={setSelectedType} />
+        {isLoading && (
+          <LoaderContainer>
+            <Loader type="ThreeDots" />
+          </LoaderContainer>
+        )}
         <OccurrencesContainer occurrences={occurrences} />
       </Main>
     </Container>
