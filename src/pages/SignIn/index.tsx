@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/AuthContext';
+import { useToast } from '../../hooks/ToastContext';
 
 import { Container, Content, Background } from './styles';
 
@@ -15,7 +16,7 @@ import LogoSignIn from '../../assets/logo.svg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import api from '../../services/api';
-import getValidationErrors from '../../Utils/getValidationErrors';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 interface SignInFormProps {
   email: string;
@@ -26,6 +27,7 @@ export default function SignIn(): JSX.Element {
   const formRef = useRef<FormHandles>(null);
 
   const { signIn } = useAuth();
+  const { addToast } = useToast();
 
   const handleSubmit = useCallback(
     async (loginProps: SignInFormProps) => {
@@ -68,10 +70,14 @@ export default function SignIn(): JSX.Element {
           formRef.current?.setErrors(errors);
         }
 
-        // disparar um toast
+        addToast({
+          type: 'success',
+          title: 'Erro na autenticação',
+          description: 'Ocorreu um erro ao fazer login, cheque as credenciais.',
+        });
       }
     },
-    [signIn],
+    [signIn, addToast],
   );
 
   return (
