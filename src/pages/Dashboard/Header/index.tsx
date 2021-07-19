@@ -42,6 +42,7 @@ const Header = ({
     } else if (response.status === 404) {
       addToast({
         title: 'Ocorrência não encontrada',
+        type: 'error',
       });
     }
 
