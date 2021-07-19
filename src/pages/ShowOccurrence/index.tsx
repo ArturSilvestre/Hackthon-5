@@ -7,6 +7,7 @@ import Loader from 'react-loader-spinner';
 import { useParams } from 'react-router-dom';
 import OccurrenceStatus from '../../enums/OccurrenceStatus';
 import OccurrenceTypes from '../../enums/OccurrenceTypes';
+import { useToast } from '../../hooks/ToastContext';
 import api from '../../services/api';
 import getOccurrenceStatusInformation from '../../utilsFunctions/getOccurrenceStatusInformation';
 import getOccurrenceTypeInformation from '../../utilsFunctions/getOccurrenceTypeInformation';
@@ -62,6 +63,7 @@ interface IFullOccurrence {
 
 const ShowOccurrence = (): JSX.Element | null => {
   const { id } = useParams<{ id: string }>();
+  const { addToast } = useToast();
 
   const [occurrence, setOccurrence] = useState<IFullOccurrence>();
   const [isLoading, setIsLoading] = useState(false);
@@ -84,9 +86,9 @@ const ShowOccurrence = (): JSX.Element | null => {
     const response = await api.patch(`/occurrence/${id}/delete-photos`);
 
     if (response.status === 204) {
-      // toast
+      addToast({ title: 'As fotos foram marcadas para exclusão 00:00' });
     }
-  }, [id]);
+  }, [addToast, id]);
 
   const defineOccurrenceNumber = useCallback(
     async (occurrenceNumber: string) => {
