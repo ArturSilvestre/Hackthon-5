@@ -128,8 +128,6 @@ export const SectionContainer = styled.div`
     min-height: 260px;
 
     border: 0;
-
-    margin-bottom: 16px;
   }
 `;
 
