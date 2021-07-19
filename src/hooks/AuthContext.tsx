@@ -5,7 +5,9 @@ import React, {
   ReactNode,
   useState,
   useContext,
+  useEffect,
 } from 'react';
+import api from '../services/api';
 
 interface AuthContextProps {
   user: {
@@ -37,6 +39,8 @@ function AuthProvider({ children }: AuthProps): JSX.Element {
     const user = localStorage.getItem('@EcoFranca:user');
 
     if (token && user) {
+      api.defaults.headers.Authorization = `Bearer ${token}`;
+
       return { token, user: JSON.parse(user) };
     }
 
@@ -47,6 +51,8 @@ function AuthProvider({ children }: AuthProps): JSX.Element {
     localStorage.setItem('@EcoFranca:token', token);
     localStorage.setItem('@EcoFranca:user', JSON.stringify(user));
 
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
     setData({ token, user });
   }, []);
 
@@ -54,8 +60,22 @@ function AuthProvider({ children }: AuthProps): JSX.Element {
     localStorage.removeItem('@EcoFranca:token');
     localStorage.removeItem('@EcoFranca:user');
 
+    delete api.defaults.headers.Authorization;
     setData({} as AuthState);
   }, []);
+
+  useEffect(() => {
+    const id = api.interceptors.response.use(value => {
+      if (value.status === 401) {
+        signOut();
+      }
+      return value;
+    });
+
+    return () => {
+      api.interceptors.response.eject(id);
+    };
+  }, [data, signOut]);
 
   const isAuthenticated = !!data.user;
 
