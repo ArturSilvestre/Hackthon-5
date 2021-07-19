@@ -1,10 +1,11 @@
+/* eslint-disable import/no-unresolved */
 import React, { useRef, useCallback } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-
-import getValidationErrors from '../../utils/getValidationErrors';
+import { useAuth } from '../../hooks/AuthContext';
+import getValidationErrors from '../../Utils/getValidationErrors';
 
 import { Container, Content, Background } from './styles';
 
@@ -12,8 +13,12 @@ import LogoSignIn from '../../assets/logo.svg';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import api from '../../services/api';
 
-interface LoginProps {
+interface SignUpFormProps {
+  first_name: string;
+  last_name: string;
+  ra: string;
   email: string;
   password: string;
 }
@@ -21,29 +26,56 @@ interface LoginProps {
 export default function SignUp(): JSX.Element {
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback(async (data: LoginProps) => {
-    try {
-      formRef.current?.setErrors({});
+  const { newAcount } = useAuth();
 
-      const schema = Yup.object().shape({
-        nome: Yup.string().required('Nome obrigatório'),
-        sobrenome: Yup.string().required('Sobrenome obrigatório'),
-        chapa: Yup.string().required('Chapa obrigatório'),
-        email: Yup.string()
-          .required('E-mail obrigatória')
-          .email('Digite email valido'),
-        password: Yup.string().min(6, 'No minimo 6 digitos'),
-      });
+  const handleSubmit = useCallback(
+    async (registerProps: SignUpFormProps) => {
+      try {
+        formRef.current?.setErrors({});
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (err) {
-      const errors = getValidationErrors(err);
+        const schema = Yup.object().shape({
+          first_name: Yup.string().required('Nome obrigatório'),
+          last_name: Yup.string().required('Sobrenome obrigatório'),
+          ra: Yup.string().required('Chapa obrigatório'),
+          email: Yup.string()
+            .required('E-mail obrigatória')
+            .email('Digite email valido'),
+          password: Yup.string().min(6, 'No minimo 6 digitos'),
+        });
 
-      formRef.current?.setErrors(errors);
-    }
-  }, []);
+        await schema.validate(registerProps, {
+          abortEarly: false,
+        });
+
+        const response = await api.post('employee', {
+          first_name: registerProps.first_name,
+          last_name: registerProps.last_name,
+          ra: registerProps.ra,
+          email: registerProps.email,
+          password: registerProps.password,
+        });
+
+        if (response.status === 404) {
+          formRef.current?.setErrors({
+            email: 'E-mail e/ou senha incorretos',
+          });
+        } else if (response.status === 200) {
+          newAcount({
+            token: response.data,
+            user: {
+              first_name: response.data.first_name,
+              last_name: response.data.last_name,
+            },
+          });
+        }
+      } catch (err) {
+        const errors = getValidationErrors(err);
+
+        formRef.current?.setErrors(errors);
+      }
+    },
+    [newAcount],
+  );
 
   return (
     <Container>
@@ -52,9 +84,9 @@ export default function SignUp(): JSX.Element {
           <h1>Criar uma nova conta</h1>
           <strong>1. Informe os dados para cadastrar um novo usuario</strong>
 
-          <Input name="nome" icon={FiMail} placeholder="Nome" />
-          <Input name="sobrenome" icon={FiMail} placeholder="Sobrenome" />
-          <Input name="chapa" icon={FiMail} placeholder="Chapa" />
+          <Input name="first_name" icon={FiMail} placeholder="Nome" />
+          <Input name="last_name" icon={FiMail} placeholder="Sobrenome" />
+          <Input name="ra" icon={FiMail} placeholder="Chapa" />
           <Input name="email" icon={FiMail} placeholder="E-mail" />
           <Input
             name="password"

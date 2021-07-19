@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import React, { useRef, useCallback } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
@@ -6,7 +7,7 @@ import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/AuthContext';
-import getValidationErrors from '../../utils/getValidationErrors';
+import getValidationErrors from '../../Utils/getValidationErrors';
 
 import { Container, Content, Background } from './styles';
 

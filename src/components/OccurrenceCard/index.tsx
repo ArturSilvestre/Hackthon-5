@@ -1,8 +1,9 @@
+/* eslint-disable import/no-unresolved */
 import { useMemo } from 'react';
 import { format, differenceInDays } from 'date-fns';
 import { FaClock } from 'react-icons/fa';
 import { IOccurrence } from '../../pages/Dashboard';
-import getOccurrenceTypeInformation from '../../utils/getOccurrenceTypeInformation';
+import getOccurrenceTypeInformation from '../../Utils/getOccurrenceTypeInformation';
 import { Container } from './styles';
 
 interface IProps {
