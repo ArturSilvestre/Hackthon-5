@@ -51,8 +51,14 @@ export default function SignIn(): JSX.Element {
           formRef.current?.setErrors({
             email: 'E-mail e/ou senha incorretos',
           });
-        } else {
-          signIn(response.data);
+        } else if (response.status === 204) {
+          signIn({
+            token: response.data.token,
+            user: {
+              first_name: response.data.first_name,
+              last_name: response.data.last_name,
+            },
+          });
         }
       } catch (err) {
         if (err instanceof Yup.ValidationError) {

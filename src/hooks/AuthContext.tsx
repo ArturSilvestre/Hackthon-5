@@ -15,7 +15,10 @@ interface AuthContextProps {
 
 interface AuthState {
   token: string;
-  user: object;
+  user: {
+    first_name: string;
+    last_name: string;
+  };
 }
 
 type AuthProps = {
