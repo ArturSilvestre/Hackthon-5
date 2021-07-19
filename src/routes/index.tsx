@@ -6,6 +6,7 @@ import SignIn from '../pages/SignIn';
 import ForgotPassword from '../pages/ForgotPassword';
 import Dashboard from '../pages/Dashboard';
 import SignUp from '../pages/SignUp';
+import ConfirmAcount from '../pages/ConfirmAcount';
 
 export function Routes() {
   return (
@@ -14,6 +15,7 @@ export function Routes() {
       <Route path="/recuperar" exact component={ForgotPassword} />
       <Route path="/home" exact component={Dashboard} />
       <Route path="/cadastrar" exact component={SignUp} />
+      <Route path="/confirmado/:id" exact component={ConfirmAcount} />
     </Switch>
   );
 }
