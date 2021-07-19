@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { lighten } from 'polished';
+import Colors from '../../styles/Colors';
 
 export const Container = styled.aside`
   display: flex;
-  width: 5%;
+  width: 80px;
   height: 100vh;
-  margin: 0 auto;
-  background: var(--Black);
+  background-color: ${Colors.black};
   align-items: center;
   text-align: center;
 
