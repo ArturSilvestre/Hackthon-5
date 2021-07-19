@@ -3,6 +3,8 @@ import { lighten } from 'polished';
 import Colors from '../../styles/Colors';
 
 export const Container = styled.aside`
+  position: fixed;
+
   display: flex;
   width: 80px;
   height: 100vh;

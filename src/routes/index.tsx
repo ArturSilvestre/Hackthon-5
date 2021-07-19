@@ -9,6 +9,7 @@ import SignUp from '../pages/SignUp';
 import ConfirmAcount from '../pages/ConfirmAcount';
 import { useAuth } from '../hooks/AuthContext';
 import MainContainer from '../components/MainContainer';
+import ShowOccurrence from '../pages/ShowOccurrence';
 
 export function Routes() {
   const { isAuthenticated } = useAuth();
@@ -29,6 +30,7 @@ export function Routes() {
     <MainContainer>
       <Switch>
         <Route path="/" exact component={Dashboard} />
+        <Route path="/occurrence/:id" exact component={ShowOccurrence} />
         <Route path="/cadastrar" exact component={SignUp} />
       </Switch>
     </MainContainer>

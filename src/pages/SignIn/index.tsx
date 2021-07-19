@@ -7,7 +7,6 @@ import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/AuthContext';
-import getValidationErrors from '../../Utils/getValidationErrors';
 
 import { Container, Content, Background } from './styles';
 
@@ -16,6 +15,7 @@ import LogoSignIn from '../../assets/logo.svg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import api from '../../services/api';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 interface SignInFormProps {
   email: string;

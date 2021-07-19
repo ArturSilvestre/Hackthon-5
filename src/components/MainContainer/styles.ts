@@ -5,5 +5,7 @@ export const Container = styled.div`
 
   > main {
     flex: 1;
+
+    margin-left: 80px;
   }
 `;

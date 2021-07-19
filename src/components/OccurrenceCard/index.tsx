@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { format, differenceInDays } from 'date-fns';
 import { FaClock } from 'react-icons/fa';
 import { IOccurrence } from '../../pages/Dashboard';
-import getOccurrenceTypeInformation from '../../Utils/getOccurrenceTypeInformation';
+import getOccurrenceTypeInformation from '../../utils/getOccurrenceTypeInformation';
 import { Container } from './styles';
 
 interface IProps {
@@ -35,7 +35,7 @@ const OccurrenceCard = ({ data }: IProps): JSX.Element => {
   }, [datetime]);
 
   return (
-    <Container>
+    <Container href={`/occurrence/${data.id}`}>
       <div>
         <p>{title}</p>
         <div>

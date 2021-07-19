@@ -29,7 +29,6 @@ export default function Dashboard(): JSX.Element {
 
     const response = await api.get('/occurrence/employee/list');
 
-    console.log(response);
     setOccurrences(response.data.occurrences);
 
     setIsLoading(false);
