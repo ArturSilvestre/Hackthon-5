@@ -9,17 +9,17 @@ export default function Menu(): JSX.Element {
         <ul>
           <Link to="/">
             <li>
-              <FiHome size={20} />
+              <FiHome size={24} />
             </li>
           </Link>
           <Link to="/recuperar">
             <li>
-              <FiArchive size={20} />
+              <FiArchive size={24} />
             </li>
           </Link>
           <Link to="/cadastrar">
             <li>
-              <FiUser size={20} />
+              <FiUser size={24} />
             </li>
           </Link>
         </ul>

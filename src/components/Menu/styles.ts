@@ -19,8 +19,8 @@ export const Container = styled.aside`
 
   ul li {
     width: 100%;
-    margin-bottom: 5px;
-    padding: 5px;
+
+    padding: 16px;
   }
 
   svg {
