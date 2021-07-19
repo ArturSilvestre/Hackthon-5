@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/AuthContext';
-import getValidationErrors from '../../Utils/getValidationErrors';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 import { Container, Content, Background } from './styles';
 
