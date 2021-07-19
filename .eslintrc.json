@@ -61,7 +61,9 @@
        }
       }
     ],
-    "camelcase": "off"
+    "camelcase": "off",
+    "default-case": "off",
+    "consistent-return": "off"
     },
     "settings": {
       "import/resolver": {
