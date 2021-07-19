@@ -63,7 +63,8 @@
     ],
     "camelcase": "off",
     "default-case": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "no-shadow": "off"
     },
     "settings": {
       "import/resolver": {
