@@ -48,7 +48,7 @@ const OccurrenceCard = ({ data }: IProps): JSX.Element => {
       <div>
         <div className="column">
           <span>Bairro</span>
-          <p>Jardim Boa Esperança</p>
+          <p>{data.address.district}</p>
         </div>
       </div>
 

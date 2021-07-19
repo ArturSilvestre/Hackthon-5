@@ -8,24 +8,29 @@ import Dashboard from '../pages/Dashboard';
 import SignUp from '../pages/SignUp';
 import ConfirmAcount from '../pages/ConfirmAcount';
 import { useAuth } from '../hooks/AuthContext';
+import MainContainer from '../components/MainContainer';
 
 export function Routes() {
   const { isAuthenticated } = useAuth();
 
-  return (
-    <Switch>
-      {!isAuthenticated ? (
+  if (!isAuthenticated) {
+    return (
+      <Switch>
         <>
           <Route path="/" exact component={SignIn} />
           <Route path="/recuperar" exact component={ForgotPassword} />
         </>
-      ) : (
-        <>
-          <Route path="/" exact component={Dashboard} />
-          <Route path="/cadastrar" exact component={SignUp} />
-          <Route path="/confirmado/:id" exact component={ConfirmAcount} />
-        </>
-      )}
-    </Switch>
+      </Switch>
+    );
+  }
+
+  return (
+    <MainContainer>
+      <Switch>
+        <Route path="/" exact component={Dashboard} />
+        <Route path="/cadastrar" exact component={SignUp} />
+        <Route path="/confirmado/:id" exact component={ConfirmAcount} />
+      </Switch>
+    </MainContainer>
   );
 }
