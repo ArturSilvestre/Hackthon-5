@@ -1,4 +1,4 @@
-import OccurrenceStatus from 'src/enums/OccurrenceStatus';
+import OccurrenceStatus from '../enums/OccurrenceStatus';
 
 interface IInformation {
   title: string;
