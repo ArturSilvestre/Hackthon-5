@@ -86,8 +86,8 @@ export const DatetimeContainer = styled.div`
 
 export const SectionContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: 1.2fr 1.5fr 1fr;
+  gap: 32px;
 
   margin-bottom: 24px;
 

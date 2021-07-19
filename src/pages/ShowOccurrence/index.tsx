@@ -229,25 +229,33 @@ const ShowOccurrence = (): JSX.Element | null => {
             </div>
           )}
 
-          <div>
-            <span>Bairro</span>
-            <p>{occurrence.address.district}</p>
-          </div>
+          {!!occurrence.address.district && (
+            <div>
+              <span>Bairro</span>
+              <p>{occurrence.address.district}</p>
+            </div>
+          )}
 
-          <div>
-            <span>Logradouro</span>
-            <p>{occurrence.address.address}</p>
-          </div>
+          {!!occurrence.address.address && (
+            <div>
+              <span>Logradouro</span>
+              <p>{occurrence.address.address}</p>
+            </div>
+          )}
 
-          <div>
-            <span>Número</span>
-            <p>{occurrence.address.number}</p>
-          </div>
+          {!!occurrence.address.number && (
+            <div>
+              <span>Número</span>
+              <p>{occurrence.address.number}</p>
+            </div>
+          )}
 
-          <div>
-            <span>Referência</span>
-            <p>{occurrence.address.reference}</p>
-          </div>
+          {!!occurrence.address.reference && (
+            <div>
+              <span>Referência</span>
+              <p>{occurrence.address.reference}</p>
+            </div>
+          )}
 
           <div>
             <span>Observações</span>
