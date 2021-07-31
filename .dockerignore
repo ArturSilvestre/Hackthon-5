@@ -1,0 +1,11 @@
+Dockerfile
+Dockerfile.prod
+
+docker-compose.yml
+docker-compose.prod.yml
+
+.dockerignore
+
+**/.git
+**/.DS_Store
+**/node_modules
