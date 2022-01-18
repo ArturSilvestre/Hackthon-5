@@ -5,7 +5,7 @@ function sleep(ms = 1000): Promise<void> {
 }
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/',
+  baseURL: 'https://apim.app.franca.sp.gov.br/gateway/unifacef/api-eco-franca/',
   validateStatus: () => true,
 });
 
